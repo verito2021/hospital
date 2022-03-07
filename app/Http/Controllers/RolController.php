@@ -13,8 +13,8 @@ class RolController extends Controller
     function __construct()
     {
         //definimos los permisos para Rol
-        $this->middleware('permission:ver-rol | crear-rol | editar-rol | borrar-rol', ['only'=>['index']]);
-        $this->middleware('permission:crear-rol', ['only'=>['create','strore']]);
+        $this->middleware('permission:ver-rol|crear-rol|editar-rol|borrar-rol',['only'=>['index']]);
+        $this->middleware('permission:crear-rol', ['only'=>['create','store']]);
         $this->middleware('permission:editar-rol', ['only'=>['edit','update']]);
         $this->middleware('permission:borrar-rol', ['only'=>['destroy']]);
     }
@@ -23,7 +23,7 @@ class RolController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         //
         $roles=Role::paginate(5); //paginamos los registros cada 5 registros muestre una pagina
@@ -54,7 +54,11 @@ class RolController extends Controller
     public function store(Request $request)
     {
         //para guardar name en ingles porque asi estan definidas las tablas que genera spatie
-        $this ->validate($request, ['name'=> 'required', 'permission'=>'required']);
+        $this ->validate($request, [
+            'name'=> 'required',
+            'permission'=>'required'
+        ]);
+
         $role=Role::create (['name'=>$request->input ('name')]);
         $role->syncPermissions($request->input('permission'));
 
@@ -102,9 +106,11 @@ class RolController extends Controller
     public function update(Request $request, $id)
     {
         //
-        $this ->validate($request, ['name'=> 'required', 'permission'=>'required']);
+        $this ->validate($request, [
+            'name'=> 'required',
+            'permission'=>'required']);
 
-        
+
         $role=Role::find($id);
         $role->name=$request->input('name');
         $role->save();

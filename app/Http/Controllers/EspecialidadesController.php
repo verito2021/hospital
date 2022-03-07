@@ -11,8 +11,8 @@ class EspecialidadesController extends Controller
     function __construct()
     {
         //definimos los permisos para Especielidades
-        $this->middleware('permission:ver-especialidades | crear-especialidades | editar-especialidades | borrar-especialidades', ['only'=>['index']]);
-        $this->middleware('permission:crear-especialidades', ['only'=>['create','strore']]);
+        $this->middleware('permission:ver-especialidades|crear-especialidades|editar-especialidades|borrar-especialidades', ['only'=>['index']]);
+        $this->middleware('permission:crear-especialidades', ['only'=>['create','store']]);
         $this->middleware('permission:editar-especialidades', ['only'=>['edit','update']]);
         $this->middleware('permission:borrar-especialidades', ['only'=>['destroy']]);
     }
@@ -36,7 +36,7 @@ class EspecialidadesController extends Controller
      */
     public function create()
     {
-        //me retorna a la vista especialidades.crear
+       //me retorna a la vista especialidades.crear
         return view ('especialidades.crear');
     }
 
@@ -50,12 +50,12 @@ class EspecialidadesController extends Controller
     {
         //realiza una validacion de los datos
         request()->validate([
-            'nbEspecialidades' => 'required',
+            'nbEspecialidad' => 'required',
             'descripcion' => 'required',
             'fechaRegistro' =>'required',
-            'fechaModificacion' =>'required',
+           // 'fechaModificacion' =>'required',
             'usuarioRegistro' =>'required',
-            'usuarioModificacion' =>'required',
+            //'usuarioModificacion' =>'required',
             'estado' =>'required',
         ]);
 
@@ -81,11 +81,13 @@ class EspecialidadesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Especialidades $especialidad)
+    public function edit($id)
     {
         //especilidad=es a como nos vamos a referir en la plnatilla especialidades.editar
         //especialidad=guardara los valores de todas las colunmas de la tabla Especialidades
-        return view('especialidades.editar', compact('especilidad'));
+
+        $especialidades=Especialidades::find($id);
+        return view('especialidades.editar', compact('especialidades'));
     }
 
     /**
@@ -95,20 +97,21 @@ class EspecialidadesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Especialidades $especialidad)
+    public function update(Request $request, Especialidades $especialidades)
     {
-        //
         request ()->validate([
             'nbEspecialidades' => 'required',
             'descripcion' => 'required',
-            'fechaRegistro' =>'required',
+            //'fechaRegistro' =>'disabled',
             'fechaModificacion' =>'required',
-            'usuarioRegistro' =>'required',
+            //'usuarioRegistro' =>'required',
             'usuarioModificacion' =>'required',
             'estado' =>'required',
         ]);
-        $especialidad->update($request->all());
+
+        $especialidades->update($request->all());
         return redirect()-> route('especialidades.index');
+
     }
 
     /**
@@ -117,10 +120,10 @@ class EspecialidadesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Especialidades $especialidad)
+    public function destroy(Especialidades $especialidades)
     {
         //eliminar una Especialidad
-        $especialidad->delete();
+        $especialidades->delete();
         return redirect ()->route('especialidades.index');
 
     }

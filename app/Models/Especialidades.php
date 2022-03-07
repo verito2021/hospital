@@ -16,7 +16,7 @@ class Especialidades extends Model
         'fechaModificacion',
         'usuarioRegistro',
         'usuarioModificacion',
-        'estado'
+        'estado',
     ];
 
 }

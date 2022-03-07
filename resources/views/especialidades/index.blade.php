@@ -11,13 +11,14 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <!--FUCION PARA CREAR UN ESPECIALIDAD -->
+                            <!--FUNCION PARA CREAR UN ESPECIALIDAD -->
                             @can('crear-especialidades')
                               <a class="btn btn-warning" href="{{route('especialidades.create')}}">Nuevo</a>
                             @endcan
 
                             <table class= "table table-striped mt-2">
                                 <thead style="background-color:#6777ef;">
+                                    <th style="display: none;">ID</th>
                                     <th style="color:#fff;">Nombre</th>
                                     <th style="color:#fff;">Descripcion</th>
                                     <th style="color:#fff;">Fecha Reg.</th>
@@ -33,7 +34,7 @@
                                      @foreach($especialidades as $especialidad)
                                      <tr>
                                         <td style="display: none;">{{$especialidad->id}}</td> <!--display:none trae el id pero no lo presenta en pantalla-->
-                                        <td>{{$especialidad->nbEspecialidades}}</td>
+                                        <td>{{$especialidad->nbEspecialidad}}</td>
                                         <td>{{$especialidad->descripcion}}</td>
                                         <td>{{$especialidad->fechaRegistro}}</td>
                                         <td>{{$especialidad->fechaModificacion}}</td>
@@ -42,16 +43,25 @@
                                         <td>{{$especialidad->estado}}</td>
 
                                         <td>
-                                            <form action="{{route('especialidades.destroy', $especialidad->id)}}" method="POST">
+                                            <!--
+                                            <form action="{{ route('especialidades.destroy',$especialidad->id) }}" method="POST">
                                                 @can('editar-especialidades')
-                                                  <a class="btn btn-info" href="{{route('especialidades.edit', $especialidad->id)}}">Editar</a>
+                                                <a class="btn btn-info" href="{{ route('especialidades.edit',$especialidad->id) }}">Editar</a>
                                                 @endcan
 
                                                 @csrf
                                                 @method('DELETE')
                                                 @can('borrar-especialidades')
-                                                    <button type= "submit" class=btn btn-danger>Borrar</button>
+                                                <button type="submit" class="btn btn-danger">Borrar</button>
                                                 @endcan
+                                            </form>
+                                        -->
+
+                                        <a class="btn btn-info" href="{{ route('especialidades.edit',$especialidad->id) }}">Ed</a>
+
+                                        {!! Form::open(['method' => 'DELETE','route' => ['especialidades.destroy', $especialidad->id],'style'=>'display:inline']) !!}
+                                            {!! Form::submit('Bo', ['class' => 'btn btn-danger']) !!}
+                                        {!! Form::close() !!}
                                         </td>
 
                                     </tr>
@@ -70,5 +80,3 @@
         </div>
     </section>
 @endsection
-
-

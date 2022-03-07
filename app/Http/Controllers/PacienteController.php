@@ -11,8 +11,8 @@ class PacienteController extends Controller
     function __construct()
     {
         //definimos los permisos para Paciente
-        $this->middleware('permission:ver-paciente | crear-paciente | editar-paciente | borrar-paciente', ['only'=>['index']]);
-        $this->middleware('permission:crear-paciente', ['only'=>['create','strore']]);
+        $this->middleware('permission:ver-paciente|crear-paciente|editar-paciente|borrar-paciente', ['only'=>['index']]);
+        $this->middleware('permission:crear-paciente', ['only'=>['create','store']]);
         $this->middleware('permission:editar-paciente', ['only'=>['edit','update']]);
         $this->middleware('permission:borrar-paciente', ['only'=>['destroy']]);
     }
@@ -50,14 +50,14 @@ class PacienteController extends Controller
     public function store(Request $request)
     {
         //realiza una validacion de los datos
-        $this->validate($request,[
+        request()->validate([
             'nombre' => 'required',
-            'apellido' => 'required',
-            'numCedula' =>'required, | numCedula |unique:paciente,numCedula',
+          //  'apellido' => 'required',
+           // 'numCedula' =>'required, | numCedula |unique:paciente,numCedula',
             'telefono' =>'required',
-            'fechaNacimiento' =>'required',
+            //'fechaNacimiento' =>'required',
             'direccion' =>'required',
-            'ciudad' =>'required',
+           // 'ciudad' =>'required',
             'genero' =>'required',
             'email' => 'required,|email|unique:paciente,email',
             'password' =>'required |same:confirm-password',
@@ -86,10 +86,10 @@ class PacienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Paciente $pacientes)
+    public function edit(Paciente $paciente)
     {
         //
-        return view('pacientes.editar', compact('pacientes'));
+        return view('pacientes.editar', compact('paciente'));
     }
 
     /**
@@ -99,22 +99,23 @@ class PacienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Paciente $pacientes)
+    public function update(Request $request, Paciente $paciente)
     {
         //realiza una validacion de los datos
-        $this->validate($request,[
+        request()->validate([
             'nombre' => 'required',
-            'apellido' => 'required',
-            'numCedula' =>'required, | numCedula |unique:paciente,numCedula',
-            'telefono' =>'required',
-            'fechaNacimiento' =>'required',
-            'direccion' =>'required',
-            'genero' =>'required',
-            'email' => 'required,|email|unique:paciente,email',
-            'password' =>'same:confirm-password',
+            //  'apellido' => 'required',
+             // 'numCedula' =>'required, | numCedula |unique:paciente,numCedula',
+              'telefono' =>'required',
+              //'fechaNacimiento' =>'required',
+              'direccion' =>'required',
+             // 'ciudad' =>'required',
+              'genero' =>'required',
+              'email' => 'required,|email|unique:paciente,email',
+              'password' =>'required |same:confirm-password',
 
         ]);
-        $pacientes->update($request->all());
+        $paciente->update($request->all());
         return redirect()-> route('pacientes.index');
     }
 
@@ -124,9 +125,9 @@ class PacienteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Paciente $pacientes)
+    public function destroy(Paciente $paciente)
     {
-        $pacientes->delete();
+        $paciente->delete();
         return redirect ()->route('pacientes.index');
     }
 }

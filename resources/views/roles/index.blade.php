@@ -13,8 +13,8 @@
                             <!--FUCION PARA CREAR ROLES-->
                             @can('crear-rol')
                             <a class="btn btn-warning" href="{{route('roles.create')}}">Nuevo</a>
-
                             @endcan
+
                             <!--CREAMOS UN TABLA  CON FONDO DE COLOR AZUL Y EL NOMBRE DE LOS PARAMETROS A PRESENTAR EN PANTALLA-->
                             <table class= "table table-striped mt-2">
                                 <thead style="background-color:#6777ef;">

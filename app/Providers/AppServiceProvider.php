@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Providers;
+use Illuminate\Pagination\Paginator as PaginationPaginator;
 //configuracion de la fachada esquema y el paginador
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;

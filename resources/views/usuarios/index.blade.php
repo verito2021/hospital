@@ -17,6 +17,14 @@
                                     <thead style="background-color:#6777ef;">
                                         <th style="display: none;">ID</th>
                                         <th style="color:#fff;">Nombres</th>
+                                        <th style="color:#fff;">Identificación</th>
+                                        <th style="color:#fff;">Telefono</th>
+                                        <th style="color:#fff;">Dirección</th>
+                                        <th style="color:#fff;">Ciudad</th>
+                                        <th style="color:#fff;">Genero</th>
+                                        <th style="display: none;">Fecha de Nacimiento</th>
+                                        <th style="color:#fff;">Edad</th>
+                                        <th style="color:#fff;">Profesion</th>
                                         <th style="color:#fff;">E-mail</th>
                                         <th style="color:#fff;">Rol</th>
                                         <th style="color:#fff;">Acciones</th>
@@ -28,6 +36,14 @@
                                             <tr>
                                                 <td style="display: none;">{{$usuario->id}}</td>
                                                 <td>{{$usuario->name}}</td>
+                                                <td>{{$usuario->identificacion}}</td>
+                                                <td>{{$usuario->telefono}}</td>
+                                                <td>{{$usuario->direccion}}</td>
+                                                <td>{{$usuario->ciudad}}</td>
+                                                <td>{{$usuario->genero}}</td>
+                                                <td style="display: none;">{{$usuario->nacimiento}}</td>
+                                                <td>{{$usuario->edad}}</td>
+                                                <td>{{$usuario->profesion}}</td>
                                                 <td>{{$usuario->email}}</td>
                                                 <td>
                                                     @if (!empty($usuario->getRoleNames()))
@@ -38,12 +54,11 @@
                                                 </td>
 
                                                 <td>
-                                                    <a class="btn btn-info" href="{{route('usuarios.edit', $usuario->id)}}">Editar</a>
+                                                    <a class="btn btn-info" href="{{ route('usuarios.edit',$usuario->id) }}">Editar</a>
 
-                                                    {!! Form::open(['method'=>'DELETE', 'route'=>['usuarios.destroy', $usuario->id], 'style'=>'display:inline']) !!}
-                                                        {!! Form::submit('Borrar', ['class'=>'btn btn-danger'])!!}
-                                                    {!! Form::close()!!}.
-
+                                                    {!! Form::open(['method' => 'DELETE','route' => ['usuarios.destroy', $usuario->id],'style'=>'display:inline']) !!}
+                                                        {!! Form::submit('Borrar', ['class' => 'btn btn-danger']) !!}
+                                                    {!! Form::close() !!}
                                                 </td>
 
                                             </tr>

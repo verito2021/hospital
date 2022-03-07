@@ -3,7 +3,7 @@
 @section('content')
     <section class="section">
         <div class="section-header">
-            <h3 class="page__heading">CREAR ROLES</h3>
+            <h3 class="page__heading">CREAR ROLES DE USUARIOS </h3>
         </div>
         <div class="section-body">
             <div class="row">
@@ -38,7 +38,7 @@
                                     <label for="">Permisos para este Rol</label>
                                     <br/>
                                         @foreach($permission as $value)
-                                           <label> {!!Form::checkbox('permission[]', $value->id, false, array('class'=>'name'))!!}
+                                           <label> {{ Form::checkbox('permission[]', $value->id, false, array('class'=>'name')) }}
                                              {{$value->name}}      </label>
                                         @endforeach
                                     <br/>

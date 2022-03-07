@@ -16,13 +16,13 @@ class CreateEspecialidadesTable extends Migration
         Schema::create('especialidades', function (Blueprint $table) {
             $table->id();
 
-            $table->string('nbEspecialidad');
+            $table->string('nbEspecialidad')->unique();
             $table->text('descripcion');
             $table->date('fechaRegistro');
             $table->date('fechaModificacion');
             $table->string('usuarioRegistro');
             $table->string('usuarioModificacion');
-            $table->enum('estado', (['activa', 'inactiva']));
+            $table->enum('estado',['Activa', 'Inactiva'])->default('Activa');
 
             $table->timestamps();
         });
